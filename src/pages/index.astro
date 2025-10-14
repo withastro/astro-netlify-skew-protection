@@ -1,0 +1,107 @@
+---
+import { ViewTransitions } from 'astro:transitions';
+
+// Deploy info from environment (only available on Netlify)
+const deployId = import.meta.env.DEPLOY_ID || 'local-development';
+const environment = import.meta.env.CONTEXT || 'development';
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Netlify Skew Protection Test</title>
+		<ViewTransitions />
+		<style>
+			body {
+				font-family: system-ui, sans-serif;
+				max-width: 800px;
+				margin: 2rem auto;
+				padding: 0 1rem;
+			}
+			.card {
+				border: 1px solid #ddd;
+				border-radius: 8px;
+				padding: 1.5rem;
+				margin: 1rem 0;
+				background: #f9f9f9;
+			}
+			button {
+				background: #4338ca;
+				color: white;
+				border: none;
+				padding: 0.5rem 1rem;
+				border-radius: 4px;
+				cursor: pointer;
+				font-size: 1rem;
+			}
+			button:hover {
+				background: #3730a3;
+			}
+			.result {
+				margin-top: 1rem;
+				padding: 1rem;
+				background: white;
+				border-radius: 4px;
+				white-space: pre-wrap;
+			}
+			code {
+				background: #e5e7eb;
+				padding: 0.2rem 0.4rem;
+				border-radius: 3px;
+				font-family: monospace;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Netlify Skew Protection Test</h1>
+
+		<p>
+			This page demonstrates the Netlify skew protection feature, which adds the
+			<code>X-Netlify-Deploy-ID</code> header to internal fetch requests.
+		</p>
+
+		<div class="card">
+			<h2>Deploy Information</h2>
+			<p><strong>Deploy ID:</strong> {deployId}</p>
+			<p><strong>Environment:</strong> {environment}</p>
+		</div>
+
+		<div class="card">
+			<h2>Test Actions (with fetch headers)</h2>
+			<button id="test-action">Call Action</button>
+			<div id="action-result" class="result" style="display: none;"></div>
+		</div>
+
+		<div class="card">
+			<h2>Test View Transitions (with fetch headers)</h2>
+			<p>Navigate to the <a href="/other">other page</a> to test view transitions with skew protection headers.</p>
+		</div>
+
+		<script>
+			import { actions } from 'astro:actions';
+
+			const button = document.getElementById('test-action');
+			const result = document.getElementById('action-result');
+
+			button?.addEventListener('click', async () => {
+				if (!result) return;
+				result.style.display = 'block';
+				result.textContent = 'Loading...';
+
+				try {
+					const response = await actions.greet({ name: 'Astronaut' });
+					if (response.data) {
+						result.textContent = JSON.stringify(response.data, null, 2);
+					} else {
+						result.textContent = 'Error: ' + JSON.stringify(response.error);
+					}
+				} catch (error) {
+					result.textContent = 'Error: ' + (error instanceof Error ? error.message : String(error));
+				}
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,64 @@
+---
+import { ViewTransitions } from 'astro:transitions';
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Other Page - Netlify Skew Protection Test</title>
+		<ViewTransitions />
+		<style>
+			body {
+				font-family: system-ui, sans-serif;
+				max-width: 800px;
+				margin: 2rem auto;
+				padding: 0 1rem;
+			}
+			.card {
+				border: 1px solid #ddd;
+				border-radius: 8px;
+				padding: 1.5rem;
+				margin: 1rem 0;
+				background: #f0fdf4;
+			}
+			a {
+				color: #4338ca;
+				text-decoration: none;
+			}
+			a:hover {
+				text-decoration: underline;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Other Page</h1>
+
+		<div class="card">
+			<h2>View Transitions Test</h2>
+			<p>
+				You navigated here using view transitions! The fetch request for this page
+				included the <code>X-Netlify-Deploy-ID</code> header for skew protection.
+			</p>
+			<p>
+				<a href="/">← Back to home</a>
+			</p>
+		</div>
+
+		<div class="card">
+			<h2>How to verify</h2>
+			<p>
+				When deployed to Netlify:
+			</p>
+			<ol>
+				<li>Open the browser's Developer Tools</li>
+				<li>Go to the Network tab</li>
+				<li>Click the home link above</li>
+				<li>Look for the HTML fetch request</li>
+				<li>Check the request headers for <code>X-Netlify-Deploy-ID</code></li>
+			</ol>
+		</div>
+	</body>
+</html>
