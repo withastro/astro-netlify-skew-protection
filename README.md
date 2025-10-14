@@ -2,6 +2,8 @@
 
 This project demonstrates the Netlify skew protection feature that adds `X-Netlify-Deploy-ID` headers to internal fetch requests in Astro.
 
+**Live Demo:** https://skew-protection-test.netlify.app/
+
 ## What this tests
 
 1. **Actions**: Client-side calls to Astro Actions include the deploy ID header
