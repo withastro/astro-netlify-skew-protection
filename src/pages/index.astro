@@ -1,9 +1,5 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
-
-// Deploy info from environment (only available on Netlify)
-const deployId = import.meta.env.DEPLOY_ID || 'local-development';
-const environment = import.meta.env.CONTEXT || 'development';
 ---
 
 <html lang="en">
@@ -62,12 +58,6 @@ const environment = import.meta.env.CONTEXT || 'development';
 			This page demonstrates the Netlify skew protection feature, which adds the
 			<code>X-Netlify-Deploy-ID</code> header to internal fetch requests.
 		</p>
-
-		<div class="card">
-			<h2>Deploy Information</h2>
-			<p><strong>Deploy ID:</strong> {deployId}</p>
-			<p><strong>Environment:</strong> {environment}</p>
-		</div>
 
 		<div class="card">
 			<h2>Test Actions (with fetch headers)</h2>
