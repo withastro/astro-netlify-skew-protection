@@ -7,4 +7,7 @@ export default defineConfig({
   output: 'server',
   adapter: netlify(),
   site: 'https://example.com',
+  build: {
+    inlineStylesheets: 'never'
+  }
 });
