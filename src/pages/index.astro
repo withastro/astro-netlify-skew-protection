@@ -13,10 +13,10 @@ import sampleImage from '../assets/images/sample.svg';
 		<meta name="generator" content={Astro.generator} />
 		<title>Netlify Skew Protection Test</title>
 		<ViewTransitions />
-		<Font />
+		<Font cssVariable='--font-inter' preload />
 		<style>
 			body {
-				font-family: system-ui, sans-serif;
+				font-family: var(--font-inter), system-ui, sans-serif;
 				max-width: 800px;
 				margin: 2rem auto;
 				padding: 0 1rem;
