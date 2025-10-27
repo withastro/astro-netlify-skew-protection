@@ -1,5 +1,8 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
+import { Image } from 'astro:assets';
+import { Font } from 'astro:assets';
+import sampleImage from '../assets/images/sample.svg';
 ---
 
 <html lang="en">
@@ -10,6 +13,7 @@ import { ViewTransitions } from 'astro:transitions';
 		<meta name="generator" content={Astro.generator} />
 		<title>Other Page - Netlify Skew Protection Test</title>
 		<ViewTransitions />
+		<Font />
 		<style>
 			body {
 				font-family: system-ui, sans-serif;
@@ -31,6 +35,18 @@ import { ViewTransitions } from 'astro:transitions';
 			a:hover {
 				text-decoration: underline;
 			}
+			code {
+				background: #e5e7eb;
+				padding: 0.2rem 0.4rem;
+				border-radius: 3px;
+				font-family: monospace;
+			}
+			.card img {
+				max-width: 100%;
+				height: auto;
+				border-radius: 4px;
+				margin: 1rem 0;
+			}
 		</style>
 	</head>
 	<body>
@@ -48,6 +64,12 @@ import { ViewTransitions } from 'astro:transitions';
 		</div>
 
 		<div class="card">
+			<h2>Images on This Page</h2>
+			<p>This page also demonstrates images with skew protection query parameters:</p>
+			<Image src={sampleImage} alt="Sample image on other page" width={150} height={150} />
+		</div>
+
+		<div class="card">
 			<h2>How to verify</h2>
 			<p>
 				When deployed to Netlify:
@@ -55,9 +77,10 @@ import { ViewTransitions } from 'astro:transitions';
 			<ol>
 				<li>Open the browser's Developer Tools</li>
 				<li>Go to the Network tab</li>
-				<li>Click the home link above</li>
-				<li>Look for the HTML fetch request</li>
-				<li>Check the request headers for <code>X-Netlify-Deploy-ID</code></li>
+				<li>Check image requests for <code>?dpl=&lt;deploy-id&gt;</code> query parameter</li>
+				<li>Check font requests for <code>?dpl=&lt;deploy-id&gt;</code> query parameter</li>
+				<li>Click the home link above to test view transitions</li>
+				<li>Look for the HTML fetch request and check headers for <code>X-Netlify-Deploy-ID</code></li>
 			</ol>
 		</div>
 	</body>

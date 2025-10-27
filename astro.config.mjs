@@ -9,5 +9,14 @@ export default defineConfig({
   site: 'https://example.com',
   build: {
     inlineStylesheets: 'never'
+  },
+  experimental: {
+    fonts: [
+      {
+        name: 'Inter',
+        src: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap',
+        preloadFontSize: 'all'
+      }
+    ]
   }
 });

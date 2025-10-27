@@ -1,5 +1,8 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
+import { Image } from 'astro:assets';
+import { Font } from 'astro:assets';
+import sampleImage from '../assets/images/sample.svg';
 ---
 
 <html lang="en">
@@ -10,6 +13,7 @@ import { ViewTransitions } from 'astro:transitions';
 		<meta name="generator" content={Astro.generator} />
 		<title>Netlify Skew Protection Test</title>
 		<ViewTransitions />
+		<Font />
 		<style>
 			body {
 				font-family: system-ui, sans-serif;
@@ -49,6 +53,15 @@ import { ViewTransitions } from 'astro:transitions';
 				border-radius: 3px;
 				font-family: monospace;
 			}
+			.card img {
+				max-width: 100%;
+				height: auto;
+				border-radius: 4px;
+				margin: 1rem 0;
+			}
+			.card small {
+				color: #666;
+			}
 		</style>
 	</head>
 	<body>
@@ -56,8 +69,21 @@ import { ViewTransitions } from 'astro:transitions';
 
 		<p>
 			This page demonstrates the Netlify skew protection feature, which adds the
-			<code>X-Netlify-Deploy-ID</code> header to internal fetch requests.
+			<code>dpl</code> query parameter to asset URLs (images, fonts, scripts, stylesheets).
 		</p>
+
+		<div class="card">
+			<h2>Test Images (with skew protection)</h2>
+			<p>This image has <code>?dpl=&lt;deploy-id&gt;</code> appended to its URL:</p>
+			<Image src={sampleImage} alt="Sample image demonstrating skew protection" width={200} height={200} />
+			<p><small>Open DevTools and check the Network tab to see the <code>?dpl</code> query parameter on the image URL.</small></p>
+		</div>
+
+		<div class="card">
+			<h2>Test Fonts (with skew protection)</h2>
+			<p>Font preload tags and font requests now include <code>?dpl=&lt;deploy-id&gt;</code>.</p>
+			<p>Open DevTools and check the Network tab to see the <code>?dpl</code> query parameter on font requests.</p>
+		</div>
 
 		<div class="card">
 			<h2>Test Actions (with fetch headers)</h2>
